@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BancoProvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+    <Property Name="IdTipoDto" Type="Int32" Nullable="false" />
+    <Property Name="NumDocumento" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TiposDocumento" Relationship="Self.FK__Empleados__IdTip__3C69FB99" FromRole="Empleados" ToRole="TiposDocumento" />
+  </EntityType>
+  <EntityType Name="TiposDocumento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Empleados" Relationship="Self.FK__Empleados__IdTip__3C69FB99" FromRole="TiposDocumento" ToRole="Empleados" />
+  </EntityType>
+  <Association Name="FK__Empleados__IdTip__3C69FB99">
+    <End Role="TiposDocumento" Type="Self.TiposDocumento" Multiplicity="1" />
+    <End Role="Empleados" Type="Self.Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposDocumento">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Empleados">
+        <PropertyRef Name="IdTipoDto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbModels" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Empleados" EntityType="Self.Empleado" />
+    <EntitySet Name="TiposDocumentoes" EntityType="Self.TiposDocumento" />
+    <AssociationSet Name="FK__Empleados__IdTip__3C69FB99" Association="Self.FK__Empleados__IdTip__3C69FB99">
+      <End Role="TiposDocumento" EntitySet="TiposDocumentoes" />
+      <End Role="Empleados" EntitySet="Empleados" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

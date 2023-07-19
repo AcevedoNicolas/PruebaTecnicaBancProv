@@ -1,0 +1,94 @@
+﻿@model IEnumerable<AcevedoBcoProv.Models.Empleado>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Empleados</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-success" })
+</p>
+@using (Html.BeginForm("Index", "Empleado", FormMethod.Get))
+{
+    <p>
+        @Html.TextBox("searchString", null, new { placeholder = "Buscar empleados...", @class = "form-control" })
+        <input type="submit" value="Buscar" class="btn btn-primary" />
+    </p>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" id="errorMessage">
+        @TempData["ErrorMessage"]
+    </div>
+
+    <script>
+        // Ocultar el mensaje de error después de 3 segundos
+        setTimeout(function () {
+            var errorMessage = document.getElementById('errorMessage');
+            errorMessage.style.display = "none";
+        }, 2000);
+    </script>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaNacimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Edad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdTipoDto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumDocumento)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaNacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TiposDocumento.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumDocumento)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Detalle", "Details", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
