@@ -1,5 +1,5 @@
 -- Crear la base de datos "BancoProv" 
-CREATE DATABASE IF NOT EXISTS BancoProv;
+CREATE DATABASE BancoProv;
 USE BancoProv;
 GO
 
