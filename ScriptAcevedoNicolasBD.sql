@@ -8,6 +8,8 @@ CREATE TABLE TiposDocumento (
     Id INT PRIMARY KEY IDENTITY,
     Descripcion NVARCHAR(50) NOT NULL
 );
+-- Crear descripcion de los tipos de documento
+INSERT INTO TiposDocumento (Descripcion) VALUES ('DNI'), ('PASAPORTE');
 
 -- Crear la tabla "Empleados"
 CREATE TABLE Empleados (
